@@ -1,0 +1,13 @@
+@import "bourbon";
+
+$red: #990000;
+
+html {
+  * {
+    background: $red;
+  }
+}
+
+section {
+  @include linear-gradient(to top, red, orange);
+}
