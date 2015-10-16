@@ -1,11 +1,16 @@
 @import "bourbon";
+@import "font-awesome";
 
-$red: #990000;
+$red: #ff0000;
 
 html {
   * {
-    background: $red;
+    background: $redd;
   }
+}
+
+i {
+  color: white;
 }
 
 section {

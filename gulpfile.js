@@ -3,49 +3,55 @@ var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
-var watchify = require('watchify');
 var babel = require('babelify');
 var sass = require('gulp-sass');
+var plumber = require('gulp-plumber');
+var notify  = require('gulp-notify');
 
-function compile(watch) {
-  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babel));
-
-  function rebundle() {
-    bundler.bundle()
-      .on('error', function(err) { console.error(err); this.emit('end'); })
-      .pipe(source('build.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./build'));
-  }
-
-  if (watch) {
-    bundler.on('update', function() {
-      console.log('-> bundling...');
-      rebundle();
-    });
-  }
-
-  rebundle();
+var notifyError = function() {
+  return plumber({
+    errorHandler: notify.onError("Error: <%= error.message %>")
+  });
 }
 
-function watch() {
-  return compile(true);
-};
-
-gulp.task('build', function() { return compile(); });
-gulp.task('watch', function() { return watch(); });
-
-gulp.task('default', ['watch']);
+var browserifyError = function(err) {
+  notify.onError("Error: <%= error.message %>")(err);
+  this.emit('end');
+}
 
 
 gulp.task('sass', function () {
-  gulp.src('sass/main.scss')
+  gulp.src('./sass/main.scss')
+    .pipe( notifyError() )
+    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sass({
-      // includePaths: require('node-bourbon').with('other/path', 'another/path')
-      // - or -
-      includePaths: require('node-bourbon').includePaths
+      includePaths: require('node-bourbon')
+        .with(require('font-awesome').scssPath)
     }))
-    .pipe(gulp.dest('build/output.css'));
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./build/css'));
+});
+
+gulp.task('fonts', function() {
+  gulp.src(require('font-awesome').fontPath)
+    .pipe( notifyError() )
+    .pipe(gulp.dest('./build/fonts'));
+});
+
+gulp.task('browserify', function() {
+  return browserify('./src/main.js')
+    .transform(babel)
+    .bundle()
+    .on('error', browserifyError)
+    .pipe(source('./main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./build/js'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch('./sass/main.scss', ['sass']);
+  gulp.watch('./src/main.js', ['browserify']);
+  gulp.watch('./package.json', ['browserify']);
 });
