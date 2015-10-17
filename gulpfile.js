@@ -7,6 +7,7 @@ var babel = require('babelify');
 var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var notify  = require('gulp-notify');
+var fontAwesome = require('./font-awesome-paths');
 
 var notifyError = function() {
   return plumber({
@@ -26,14 +27,14 @@ gulp.task('sass', function () {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sass({
       includePaths: require('node-bourbon')
-        .with(require('font-awesome').scssPath)
+        .with(fontAwesome.scssPath)
     }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./build/css'));
 });
 
 gulp.task('fonts', function() {
-  gulp.src(require('font-awesome').fontPath)
+  gulp.src(fontAwesome.fontPath)
     .pipe( notifyError() )
     .pipe(gulp.dest('./build/fonts'));
 });
