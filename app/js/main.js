@@ -17,6 +17,8 @@ var _moment2 = _interopRequireDefault(_moment);
 
 console.log('Hello, World');
 
+throw "we";
+
 },{"jquery":2,"moment":3,"underscore":4}],2:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4

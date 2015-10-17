@@ -7,6 +7,7 @@ var babel = require('babelify');
 var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var notify  = require('gulp-notify');
+var uglify = require('gulp-uglify');
 var fontAwesome = require('./font-awesome-paths');
 
 var notifyError = function() {
@@ -53,6 +54,7 @@ gulp.task('browserify', function() {
     .pipe(source('./main.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/js'));
 });
