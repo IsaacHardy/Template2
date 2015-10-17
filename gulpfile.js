@@ -39,6 +39,12 @@ gulp.task('fonts', function() {
     .pipe(gulp.dest('./build/fonts'));
 });
 
+gulp.task('normalize', function() {
+  gulp.src(require.resolve('normalize.css'))
+    .pipe( notifyError() )
+    .pipe(gulp.dest('./build/css'));
+});
+
 gulp.task('browserify', function() {
   return browserify('./src/main.js')
     .transform(babel)
@@ -56,3 +62,8 @@ gulp.task('watch', function() {
   gulp.watch('./src/main.js', ['browserify']);
   gulp.watch('./package.json', ['browserify']);
 });
+
+gulp.task('default', ['browserify',
+                      'sass',
+                      'fonts',
+                      'normalize']);

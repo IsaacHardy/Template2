@@ -9211,19 +9211,6 @@ return jQuery;
 }));
 
 },{}],2:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports["default"] = function () {
-  return "foo";
-};
-
-module.exports = exports["default"];
-
-},{}],3:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9232,12 +9219,8 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _fooJs = require('./foo.js');
+console.log('Hello, World');
 
-var _fooJs2 = _interopRequireDefault(_fooJs);
-
-console.log((0, _fooJs2['default'])(), _jquery2['default']);
-
-},{"./foo.js":2,"jquery":1}]},{},[3]);
+},{"jquery":1}]},{},[2]);
 
 //# sourceMappingURL=main.js.map
