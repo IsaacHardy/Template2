@@ -30,23 +30,23 @@ gulp.task('sass', function () {
         .with(fontAwesome.scssPath)
     }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./build/css'));
+    .pipe(gulp.dest('./app/css'));
 });
 
 gulp.task('fonts', function() {
   gulp.src(fontAwesome.fontPath)
     .pipe( notifyError() )
-    .pipe(gulp.dest('./build/fonts'));
+    .pipe(gulp.dest('./app/fonts'));
 });
 
 gulp.task('normalize', function() {
   gulp.src(require.resolve('normalize.css'))
     .pipe( notifyError() )
-    .pipe(gulp.dest('./build/css'));
+    .pipe(gulp.dest('./app/css'));
 });
 
 gulp.task('browserify', function() {
-  return browserify('./src/main.js')
+  return browserify('./js/main.js')
     .transform(babel)
     .bundle()
     .on('error', browserifyError)
@@ -54,12 +54,12 @@ gulp.task('browserify', function() {
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./build/js'));
+    .pipe(gulp.dest('./app/js'));
 });
 
 gulp.task('watch', function() {
   gulp.watch('./sass/main.scss', ['sass']);
-  gulp.watch('./src/main.js', ['browserify']);
+  gulp.watch('./js/main.js', ['browserify']);
   gulp.watch('./package.json', ['browserify']);
 });
 
