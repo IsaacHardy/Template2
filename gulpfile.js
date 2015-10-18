@@ -9,7 +9,7 @@ var plumber = require('gulp-plumber');
 var notify  = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var server  = require('gulp-server-livereload');
-var fontAwesome = require('./font-awesome-paths');
+var fontAwesome = require('node-font-awesome');
 
 var notifyError = function() {
   return plumber({
@@ -36,7 +36,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('fonts', function() {
-  gulp.src(fontAwesome.fontPath)
+  gulp.src(fontAwesome.fonts)
     .pipe( notifyError() )
     .pipe(gulp.dest('./app/fonts'));
 });
