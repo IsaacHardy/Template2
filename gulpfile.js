@@ -72,9 +72,9 @@ gulp.task('server', function () {
     }));
 });
 
-gulp.task('default', ['browserify',
-                      'sass',
+gulp.task('default', ['sass',
                       'fonts',
-                      'normalize']);
+                      'normalize',
+                      'browserify']);
 
 gulp.task('start', ['default', 'watch', 'server']);
