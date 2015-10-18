@@ -1,18 +1,6 @@
 @import "bourbon";
 @import "font-awesome";
 
-$red: #ff0000;
-
-html {
-  * {
-    background: $red;
-  }
-}
-
-i {
-  color: white;
-}
-
-section {
-  @include linear-gradient(to top, red, orange);
+body {
+  background: #e2ebf3;
 }

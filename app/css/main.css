@@ -2018,15 +2018,7 @@
 .fa-fonticons:before {
   content: ""; }
 
-html * {
-  background: #ff0000; }
-
-i {
-  color: white; }
-
-section {
-  background-color: red;
-  background-image: -webkit-linear-gradient(bottom, red, orange);
-  background-image: linear-gradient(to top,red, orange, , , , , , , , ); }
+body {
+  background: #e2ebf3; }
 
 /*# sourceMappingURL=main.css.map */
