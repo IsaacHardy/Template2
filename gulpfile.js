@@ -62,8 +62,7 @@ gulp.task('browserify', function() {
 
 gulp.task('watch', function() {
   gulp.watch('./sass/main.scss', ['sass']);
-  gulp.watch('./js/main.js', ['browserify']);
-  gulp.watch('./package.json', ['browserify']);
+  gulp.watch(['./js/*.js', './package.json'], ['browserify']);
 });
 
 gulp.task('server', function () {
