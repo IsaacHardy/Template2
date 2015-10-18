@@ -17,8 +17,6 @@ var _moment2 = _interopRequireDefault(_moment);
 
 console.log('Hello, World');
 
-throw "we";
-
 },{"jquery":2,"moment":3,"underscore":4}],2:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
@@ -13856,7 +13854,7 @@ return jQuery;
     // Compile the template source, escaping string literals appropriately.
     var index = 0;
     var source = "__p+='";
-    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) { 
       source += text.slice(index, offset).replace(escaper, escapeChar);
       index = offset + match.length;
 
@@ -13977,6 +13975,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[1]);
+},{}]},{},[1])
+
 
 //# sourceMappingURL=main.js.map

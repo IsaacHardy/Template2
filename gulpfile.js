@@ -47,14 +47,14 @@ gulp.task('normalize', function() {
 });
 
 gulp.task('browserify', function() {
-  return browserify('./js/main.js')
+  return browserify('./js/main.js', {debug: true})
     .transform(babel)
     .bundle()
     .on('error', browserifyError)
     .pipe(source('./main.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(uglify())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    // .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/js'));
 });
