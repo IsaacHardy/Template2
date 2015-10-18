@@ -8,6 +8,7 @@ var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var notify  = require('gulp-notify');
 var uglify = require('gulp-uglify');
+var server  = require('gulp-server-livereload');
 var fontAwesome = require('./font-awesome-paths');
 
 var notifyError = function() {
@@ -65,7 +66,16 @@ gulp.task('watch', function() {
   gulp.watch('./package.json', ['browserify']);
 });
 
+gulp.task('server', function () {
+  return gulp.src('app')
+    .pipe(server({
+      livereload: true
+    }));
+});
+
 gulp.task('default', ['browserify',
                       'sass',
                       'fonts',
                       'normalize']);
+
+gulp.task('start', ['default', 'watch', 'server']);
