@@ -66,7 +66,9 @@ gulp.task('browserify', function() {
 gulp.task('hint:js', function() {
   return gulp.src('./js/**/*.js')
     .pipe(notifyError())
-    .pipe(jshint({esnext: true}))
+    .pipe(jshint({
+      esnext: true, curly: true, eqeqeq: true
+    }))
     .pipe(jshint.reporter('fail'))
     .pipe(jshint.reporter('jshint-stylish'));
 });
