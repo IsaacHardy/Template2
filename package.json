@@ -13,6 +13,7 @@
     "browserify": "^11.2.0",
     "gulp": "^3.9.0",
     "gulp-htmlhint": "^0.3.0",
+    "gulp-jscs": "^3.0.1",
     "gulp-jshint": "^1.11.2",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",

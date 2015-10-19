@@ -13,6 +13,7 @@ var fontAwesome = require('node-font-awesome');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var htmlhint = require('gulp-htmlhint');
+var jscs = require('gulp-jscs');
 
 var notifyError = function() {
   return plumber({
@@ -63,11 +64,19 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./app/js'));
 });
 
+gulp.task('style:js', function() {
+  return gulp.src('./js/**/*.js')
+    .pipe(notifyError())
+    .pipe(jscs())
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'))
+});
+
 gulp.task('hint:js', function() {
   return gulp.src('./js/**/*.js')
     .pipe(notifyError())
     .pipe(jshint({
-      esnext: true, curly: true, eqeqeq: true
+      esnext: true, eqeqeq: true
     }))
     .pipe(jshint.reporter('fail'))
     .pipe(jshint.reporter('jshint-stylish'));
@@ -84,7 +93,7 @@ gulp.task('watch', function() {
   gulp.watch('./sass/main.scss', ['sass']);
   gulp.watch(['./js/*.js', './package.json'], ['browserify']);
   gulp.watch('./app/index.html', ['hint:html']);
-  gulp.watch('./js/**/*.js', ['hint:js']);
+  gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
 });
 
 gulp.task('server', function () {
