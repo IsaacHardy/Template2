@@ -10,6 +10,9 @@ var notify  = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var server  = require('gulp-server-livereload');
 var fontAwesome = require('node-font-awesome');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var htmlhint = require('gulp-htmlhint');
 
 var notifyError = function() {
   return plumber({
@@ -60,9 +63,26 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./app/js'));
 });
 
+gulp.task('hint:js', function() {
+  return gulp.src('./js/**/*.js')
+    .pipe(notifyError())
+    .pipe(jshint({esnext: true}))
+    .pipe(jshint.reporter('fail'))
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('hint:html', function() {
+  return gulp.src('./app/index.html')
+    .pipe(notifyError())
+    .pipe(htmlhint())
+    .pipe(htmlhint.failReporter());
+});
+
 gulp.task('watch', function() {
   gulp.watch('./sass/main.scss', ['sass']);
   gulp.watch(['./js/*.js', './package.json'], ['browserify']);
+  gulp.watch('./app/index.html', ['hint:html']);
+  gulp.watch('./js/**/*.js', ['hint:js']);
 });
 
 gulp.task('server', function () {
