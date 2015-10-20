@@ -93,7 +93,7 @@ gulp.task('watch', function() {
   gulp.watch('./sass/main.scss', ['sass']);
   gulp.watch(['./js/*.js', './package.json'], ['browserify']);
   gulp.watch('./app/index.html', ['hint:html']);
-  gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
+  //gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
 });
 
 gulp.task('server', function () {
