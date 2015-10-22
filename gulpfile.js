@@ -76,7 +76,8 @@ gulp.task('hint:js', function() {
   return gulp.src('./js/**/*.js')
     .pipe(notifyError())
     .pipe(jshint({
-      esnext: true, eqeqeq: true
+      esnext: true, eqeqeq: true,
+      linter: require('jshint-jsx').JSXHINT
     }))
     .pipe(jshint.reporter('fail'))
     .pipe(jshint.reporter('jshint-stylish'));
@@ -89,14 +90,16 @@ gulp.task('hint:html', function() {
     .pipe(htmlhint.failReporter());
 });
 
+gulp.task('lint', ['style:js', 'hint:js', 'hint:html']);
+
 gulp.task('watch', function() {
-  gulp.watch('./sass/main.scss', ['sass']);
+  gulp.watch('./sass/*.scss', ['sass']);
   gulp.watch(['./js/*.js', './package.json'], ['browserify']);
   gulp.watch('./app/index.html', ['hint:html']);
-  //gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
+  gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
 });
 
-gulp.task('server', function () {
+gulp.task('server', ['default'], function () {
   return gulp.src('app')
     .pipe(server({
       livereload: true
@@ -106,6 +109,7 @@ gulp.task('server', function () {
 gulp.task('default', ['sass',
                       'fonts',
                       'normalize',
+                      'lint',
                       'browserify']);
 
 gulp.task('start', ['default', 'watch', 'server']);
