@@ -128,3 +128,12 @@ gulp.task('default', ['sass',
                       'browserify-test']);
 
 gulp.task('start', ['default', 'watch', 'server']);
+
+gulp.task('spec:bundle', function() {
+  return browserify('./spec/spec.js', {debug: true})
+    .transform(babel)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./spec/'));
+});
