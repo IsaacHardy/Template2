@@ -109,8 +109,7 @@ gulp.task('watch', function() {
   gulp.watch('./sass/**/*.scss', ['sass']);
   gulp.watch(['./js/**/*.js', './package.json'], ['browserify', 'browserify-test']);
   gulp.watch('./app/index.html', ['hint:html']);
-  // Before you comment this out, consider keeping it and trying to follow the guide.
-  // See the guide here - https://github.com/felixge/node-style-guide
+  // Before you comment this out, consider keeping it and trying to follow the rules laid out.
   gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
 });
 
