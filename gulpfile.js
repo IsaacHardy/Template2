@@ -32,11 +32,7 @@ gulp.task('sass', function () {
     .pipe( notifyError() )
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sass({
-      includePaths: [
-        'node_modules/bourbon/app/assets/stylesheets',
-        'node_modules/bourbon-neat/app/assets/stylesheets',
-        fontAwesome.scssPath
-      ]
+      includePaths: require('node-neat').with(fontAwesome.scssPath)
     }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/css'));
