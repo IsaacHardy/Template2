@@ -1,7 +1,4 @@
 {
   "preset": "node-style-guide",
-  "esnext": true,
-  "requireTrailingComma": false,
-  "disallowTrailingWhitespace": false,
-  "requireCapitalizedComments": false
+  "esnext": true
 }
