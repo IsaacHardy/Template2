@@ -29,7 +29,7 @@ At the top of your `main.scss` file, just import any of the following:
 @import "bourbon";
 @import "neat";
 
-@import "foundation"
+@import "foundation";
 
 @import "font-awesome";
 ```
