@@ -15,6 +15,11 @@ var stylish = require('jshint-stylish');
 var htmlhint = require('gulp-htmlhint');
 var jscs = require('gulp-jscs');
 
+// Set up Foundation
+var path = require('path');
+var foundationEntry = require.resolve('foundation-sites');
+var foundationSCSS = path.join(foundationEntry, '../../../scss');
+
 var notifyError = function() {
   return plumber({
     errorHandler: notify.onError("Error: <%= error.message %>")
@@ -32,7 +37,7 @@ gulp.task('sass', function () {
     .pipe( notifyError() )
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sass({
-      includePaths: require('node-neat').with(fontAwesome.scssPath)
+      includePaths: require('node-neat').with([fontAwesome.scssPath, foundationSCSS])
     }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/css'));
