@@ -14,6 +14,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var htmlhint = require('gulp-htmlhint');
 var jscs = require('gulp-jscs');
+var watch = require('gulp-watch'); // A Better File Watcher
 
 // Set up Foundation
 var path = require('path');
@@ -111,11 +112,11 @@ gulp.task('hint:html', function() {
 gulp.task('lint', ['style:js', 'hint:js', 'hint:html']);
 
 gulp.task('watch', function() {
-  gulp.watch('./sass/**/*.scss', ['sass']);
-  gulp.watch(['./js/**/*.js', './package.json'], ['browserify', 'browserify-test']);
-  gulp.watch('./app/index.html', ['hint:html']);
+  watch('./sass/**/*.scss', ['sass']);
+  watch(['./js/**/*.js', './package.json'], ['browserify', 'browserify-test']);
+  watch('./app/index.html', ['hint:html']);
   // Before you comment this out, consider keeping it and trying to follow the rules laid out.
-  gulp.watch('./js/**/*.js', ['hint:js', ['style:js']]);
+  watch('./js/**/*.js', ['hint:js', ['style:js']]);
 });
 
 gulp.task('server', ['default'], function () {
